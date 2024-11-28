@@ -1,5 +1,5 @@
-python -m venv exercise
-exercise\Scripts\activate // 가상환경 활성화
+python -m venv ex
+ex\Scripts\activate // 가상환경 활성화
 
 pip install flask // 플라스크 설치
 
