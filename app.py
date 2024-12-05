@@ -7,7 +7,7 @@ import os
 app = Flask(__name__)
 
 # Flask 설정
-app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024  # 파일 크기 제한: 2MB
+app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024  # 파일 크기 제한: 10MB
 
 # 모델 로드
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
