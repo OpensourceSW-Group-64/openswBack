@@ -2,13 +2,92 @@
 <html>
 <head>
     <title>Emotion Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #result {
+            margin-top: 20px;
+        }
+        #emotion {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        #confidence {
+            font-style: italic;
+        }
+        #preview {
+            margin-top: 20px;
+        }
+        #preview img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
     <h1>Emotion Prediction API</h1>
     <p>Use this form to upload an image and get an emotion prediction.</p>
-    <form action="/predict" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" accept="image/*">
-        <button type="submit">Upload</button>
-    </form>
+    <input type="file" id="imageUpload" accept="image/*">
+    <button id="uploadButton">Upload</button>
+
+    <div id="preview"></div>
+
+    <div id="result">
+        <p id="emotion"></p>
+        <p id="confidence"></p>
+    </div>
+
+    <script>
+        // 이미지 업로드 버튼 클릭 시 이벤트 처리
+        document.getElementById('uploadButton').addEventListener('click', function() {
+            var fileInput = document.getElementById('imageUpload');
+            var file = fileInput.files[0];
+
+            if (!file) {
+                alert('Please select an image file.');
+                return;
+            }
+
+            var formData = new FormData();
+            formData.append('file', file);
+
+            // 서버로 이미지 파일 전송
+            fetch('/predict', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                } else {
+                    // 결과 표시
+                    document.getElementById('emotion').innerText = 'Emotion: ' + data.emotion;
+                    document.getElementById('confidence').innerText = 'Confidence: ' + (data.confidence * 100).toFixed(2) + '%';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while processing your request.');
+            });
+        });
+
+        // 이미지 선택 시 미리보기 기능
+        document.getElementById('imageUpload').addEventListener('change', function() {
+            var file = this.files[0];
+
+            if (file) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    var preview = document.getElementById('preview');
+                    preview.innerHTML = '<img src="' + e.target.result + '" alt="Image Preview">';
+                }
+
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 </body>
 </html>

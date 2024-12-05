@@ -1,0 +1,6 @@
+tensorflow==2.12.0
+opencv-python-headless==4.8.0.74
+numpy==1.23.5
+transformers==4.33.2
+streamlit==1.25.0
+flask==3.0.0  # Flask 최신 버전
