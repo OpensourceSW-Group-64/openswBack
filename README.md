@@ -11,7 +11,7 @@
   By utilizing a pre-trained neural network and facial detection algorithms, it achieves accurate emotion recognition and classification.
 
 
-## Key Features
+## ⭐ Key Features
 
 - **Emotion Prediction**: Automatically sends the uploaded image to the `/predict` endpoint for analysis.
 - **Text Sentiment Analysis**: Type text in the provided input field to analyze the sentiment (e.g., Positive, Negative, Neutral).
@@ -35,7 +35,7 @@
   - [emotion_model.hdf5](https://github.com/petercunha/Emotion/blob/master/models/emotion_model.hdf5) : Used for distinct face expression
 
  *****You need to download raw files.***
-## How to Execute
+## 👊 How to Execute
 1. Activate conda virtual environment
   ```sh
  python -m venv ex // 가상환경 활성화
@@ -51,10 +51,12 @@ ex\Scripts\activate
 http://localhost:5000/ or http://127.0.0.1:5000
  ```
 ## 📋 System Architecture
-![System architectur](https://github.com/user-attachments/assets/db5e24f1-5caf-4944-b32b-abbb67025e40)
+![System architecture](https://github.com/user-attachments/assets/f81073d8-253b-4cb5-bf07-a9744af5f3a1)
+
+
 ## 📹 Demo
 
-사진 업로드를 이용한 표정 예측<br>
+Emotion analysis using uploading pictures<br>
 ![image](https://github.com/user-attachments/assets/9a463035-81aa-43fd-8975-f58c4edcce61)
 ![image](https://github.com/user-attachments/assets/068788f2-9213-44bd-888f-122b485e03a5)
 
