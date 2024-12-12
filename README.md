@@ -3,6 +3,15 @@
 ## ✋ Introduction
  이 프로젝트는 가천대학교 오픈소스 64조가 진행한 팀 프로젝트입니다.
  얼굴 사진을 이미지 혹은 사진 촬영으로 입력받고, 표정 상태를 예측합니다.
+ Users can upload an image to the page, which then sends the image to the backend server (`/predict` endpoint) for emotion recognition. The server returns the predicted emotion and confidence score, which are displayed directly on the page.
+
+## Key Features
+
+- **Image Upload**: Easily select an image file from your device.
+- **Emotion Prediction**: Automatically sends the uploaded image to the `/predict` endpoint for analysis.
+- **Result Display**: Shows the predicted emotion and confidence score returned by the server.
+- **Image Preview**: Displays a preview of the selected image before sending it to the server.
+
  
 ## 📚 Packages
 ### Install libraries
@@ -48,3 +57,5 @@ https://blog.naver.com/tmvmffpsej/223104743267
   - 202035384 전지우 [bisha0821@gachon.ac.kr] : Modeling
   - 202133333 한원근 [sample1234@gachon.ac.kr]: Modeling
 ### **More information, Contact us!!**
+
+
