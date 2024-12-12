@@ -53,7 +53,11 @@ http://localhost:5000/ or http://127.0.0.1:5000
 ## 📋 System Architecture
 ![System architectur](https://github.com/user-attachments/assets/db5e24f1-5caf-4944-b32b-abbb67025e40)
 ## 📹 Demo
-데모 영상/사진 추가
+
+사진 업로드를 이용한 표정 예측<br>
+![image](https://github.com/user-attachments/assets/9a463035-81aa-43fd-8975-f58c4edcce61)
+![image](https://github.com/user-attachments/assets/068788f2-9213-44bd-888f-122b485e03a5)
+
 
 ## 👀 References
 Below are the materials and resources used in developing this project:
