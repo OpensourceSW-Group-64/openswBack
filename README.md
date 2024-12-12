@@ -57,8 +57,8 @@ http://localhost:5000/ or http://127.0.0.1:5000
 ## 📹 Demo
 
 Emotion analysis using uploading pictures<br>
-![image](https://github.com/user-attachments/assets/9a463035-81aa-43fd-8975-f58c4edcce61)
-![image](https://github.com/user-attachments/assets/068788f2-9213-44bd-888f-122b485e03a5)
+
+![image](https://github.com/OpensourceSW-Group-64/openswBack/blob/main/test_image.png)
 
 
 ## 👀 References
