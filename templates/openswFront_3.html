@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/ >
+    <title>Emotion Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+        }
+        p {
+            line-height: 1.6;
+        }
+        #result {
+            margin-top: 20px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        #emotion {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+        #confidence {
+            font-style: italic;
+            color: #555;
+        }
+        #preview {
+            margin-top: 20px;
+            text-align: center;
+        }
+        #preview img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        #loading {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #555;
+            display: none;
+        }
+        #error {
+            margin-top: 15px;
+            color: red;
+            font-weight: bold;
+        }
+        .btn-container {
+            margin-top: 15px;
+            text-align: center;
+        }
+        #uploadButton {
+            padding: 8px 16px;
+            border-radius: 5px;
+            border: none;
+            background: #4CAF50;
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        #uploadButton:hover {
+            background: #45a049;
+        }
+        input[type="file"] {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Emotion Prediction Web Interface</h1>
+    <p>이 페이지는 감정 분석 모델 API(/predict)를 호출하여, 업로드한 이미지 속 인물의 감정을 예측합니다. 아래에서 이미지를 선택 후 "Upload" 버튼을 클릭해주세요.</p>
+
+    <input type="file" id="imageUpload" accept="image/*">
+    <div class="btn-container">
+        <button id="uploadButton">Upload</button>
+    </div>
+
+    <div id="preview"></div>
+    <div id="loading">Processing... Please wait.</div>
+    <div id="error"></div>
+
+    <div id="result">
+        <p id="emotion"></p>
+        <p id="confidence"></p>
+    </div>
+
+    <script>
+        const uploadButton = document.getElementById('uploadButton');
+        const imageUpload = document.getElementById('imageUpload');
+        const emotionElem = document.getElementById('emotion');
+        const confidenceElem = document.getElementById('confidence');
+        const loadingElem = document.getElementById('loading');
+        const errorElem = document.getElementById('error');
+        const preview = document.getElementById('preview');
+
+        // 이미지 업로드 버튼 클릭 시 이벤트 처리
+        uploadButton.addEventListener('click', function() {
+            const file = imageUpload.files[0];
+
+            if (!file) {
+                alert('이미지를 선택해주세요.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            // 로딩 메시지 표시
+            loadingElem.style.display = 'block';
+            errorElem.innerHTML = '';
+            emotionElem.innerText = '';
+            confidenceElem.innerText = '';
+
+            // 서버로 이미지 파일 전송
+            fetch('/predict', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                loadingElem.style.display = 'none';
+                if (!response.ok) {
+                    throw new Error('서버 응답 에러가 발생했습니다. HTTP 상태: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    errorElem.innerText = 'Error: ' + data.error;
+                } else {
+                    // 결과 표시
+                    emotionElem.innerText = 'Emotion: ' + data.emotion;
+                    confidenceElem.innerText = 'Confidence: ' + (data.confidence * 100).toFixed(2) + '%';
+                }
+            })
+            .catch(error => {
+                loadingElem.style.display = 'none';
+                errorElem.innerText = '요청 처리 중 에러가 발생했습니다: ' + error.message;
+            });
+        });
+
+        // 이미지 선택 시 미리보기 기능
+        imageUpload.addEventListener('change', function() {
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    preview.innerHTML = '<img src="' + e.target.result + '" alt="Image Preview">';
+                }
+                reader.readAsDataURL(file);
+            } else {
+                preview.innerHTML = '';
+            }
+        });
+    </script>
+</body>
+</html>
